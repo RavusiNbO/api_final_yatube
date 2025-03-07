@@ -5,41 +5,28 @@ api final
 Описание:
 
 ```
-git clone https://github.com/yandex-praktikum/kittygram.git
-```
-
-```
-cd kittygram
+Финальное задание 10 спринта
 ```
 
 Установка:
 
 ```
+git clone https://github.com/RavusiNbO/api_final_yatube
 python3 -m venv env
-```
-
-```
-source env/bin/activate
+. venv/bin/activate
+pip install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py runserver
 ```
 
 Примеры:
 
+POST http://127.0.0.1:8000/api/v1/jwt/create/ - получение токена
 ```
-python3 -m pip install --upgrade pip
-```
-
-```
-pip install -r requirements.txt
-```
-
-Выполнить миграции:
-
-```
-python3 manage.py migrate
+{
+    "username" : "rava",
+    "password" : "1"
+}
 ```
 
-Запустить проект:
-
-```
-python3 manage.py runserver
-```
+GET http://127.0.0.1:8000/api/v1/posts/ - получение списка постов
