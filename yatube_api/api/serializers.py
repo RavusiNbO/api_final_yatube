@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField, PrimaryKeyRelatedField
 
 
-from posts.models import Comment, Post, Group, Follow, User
+from posts.models import Comment, Post, Group, Follow
 
 
 class GroupSerializer(serializers.ModelSerializer):

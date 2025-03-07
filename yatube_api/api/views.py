@@ -42,12 +42,14 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         post = get_object_or_404(models.Post, pk=self.kwargs.get("post_id"))
+        print(post)
         comments = models.Comment.objects.all()
         serializer = self.get_serializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, *args, **kwargs):
         post = get_object_or_404(models.Post, pk=self.kwargs.get("post_id"))
+        print(post)
         comment = self.get_object()
         serializer = self.get_serializer(comment)
         return Response(serializer.data, status=status.HTTP_200_OK)
