@@ -95,7 +95,6 @@ class FollowViewSet(
         return models.Follow.objects.filter(user=self.request.user)
 
     def list(self, request, *args, **kwargs):
-        # Применяем фильтры и поиск
         queryset = self.filter_queryset(self.get_queryset())
         serializer = serializers.FollowSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -103,16 +102,31 @@ class FollowViewSet(
     def create(self, request, *args, **kwargs):
         user = self.request.user
         following_username = self.request.data.get("following")
-        if user is None:
+
+        if not following_username:
             return Response(
-                {"detail": "User not found."},
-                status=status.HTTP_400_BAD_REQUEST
+                {"detail": "Field 'following' is required."},
+                status=status.HTTP_400_BAD_REQUEST,
             )
+
         try:
             following = models.User.objects.get(username=following_username)
         except models.User.DoesNotExist:
             return Response(
-                {"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND
+                {"detail": "User not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if user == following:
+            return Response(
+                {"detail": "You cannot follow yourself."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if models.Follow.objects.filter(user=user, following=following).exists():
+            return Response(
+                {"detail": "You are already following this user."},
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
         follow = models.Follow.objects.create(user=user, following=following)
