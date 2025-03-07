@@ -106,7 +106,7 @@ class FollowViewSet(
         if not following_username:
             return Response(
                 {"detail": "Field 'following' is required."},
-                status=status.HTTP_400_BAD_REQUEST,
+                status=status.HTTP_400_BAD_REQUEST
             )
 
         try:
