@@ -124,8 +124,9 @@ class FollowViewSet(
             )
 
         if models.Follow.objects.filter(
-        user=user,
-        following=following).exists():
+            user=user,
+            following=following
+        ).exists():
             return Response(
                 {"detail": "You are already following this user."},
                 status=status.HTTP_400_BAD_REQUEST,
