@@ -40,7 +40,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class FollowSerializer(serializers.ModelSerializer):
     user = SlugRelatedField(read_only=True, slug_field="username")
-    following = SlugRelatedField(queryset=Follow.objects.all(), slug_field="username")
+    following = SlugRelatedField(
+        queryset=Follow.objects.all(),
+        slug_field="username")
 
     class Meta:
         fields = ("user", "following")

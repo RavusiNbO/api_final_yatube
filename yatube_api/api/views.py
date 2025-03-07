@@ -1,8 +1,9 @@
 # TODO:  Напишите свой вариант
-from rest_framework import viewsets, permissions, status, filters, mixins, pagination
+from rest_framework import viewsets, permissions
 from posts import models
 from . import serializers
-from rest_framework import exceptions
+from rest_framework import pagination, mixins
+from rest_framework import exceptions, status, filters
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 
