@@ -43,7 +43,6 @@ class CommentViewSet(viewsets.ModelViewSet):
         post = get_object_or_404(models.Post, pk=self.kwargs.get("post_id"))
         return models.Comment.objects.filter(post=post)
 
-
     def list(self, request, *args, **kwargs):
         comments = self.get_queryset()
         serializer = self.get_serializer(comments, many=True)
@@ -106,7 +105,8 @@ class FollowViewSet(
         following_username = self.request.data.get("following")
         if user is None:
             return Response(
-                {"detail": "User not found."}, status=status.HTTP_400_BAD_REQUEST
+                {"detail": "User not found."},
+                status=status.HTTP_400_BAD_REQUEST
             )
         try:
             following = models.User.objects.get(username=following_username)
