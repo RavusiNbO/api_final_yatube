@@ -13,7 +13,6 @@ router.register("follow", views.FollowViewSet, basename="follow")
 
 
 urlpatterns = [
-    # JWT-эндпоинты, для управления JWT-токенами:
     path("", include("djoser.urls.jwt")),
     path("", include(router.urls)),
 ]
