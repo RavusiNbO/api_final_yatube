@@ -106,13 +106,13 @@ class FollowViewSet(
         following_username = self.request.data.get("following")
         if user is None:
             return Response(
-                {"detail": "User not found."}, status=status.HTTP_400_NOT_FOUND
+                {"detail": "User not found."}, status=status.HTTP_400_BAD_REQUEST
             )
         try:
             following = models.User.objects.get(username=following_username)
         except models.User.DoesNotExist:
             return Response(
-                {"detail": "User not found."}, status=status.HTTP_400_NOT_FOUND
+                {"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND
             )
 
         follow = models.Follow.objects.create(user=user, following=following)
